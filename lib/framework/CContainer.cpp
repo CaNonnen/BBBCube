@@ -15,9 +15,9 @@ CContainer::CContainer() : mReadSem(false, false)
 bool CContainer::getContent(bool waitForever,
 							SContent& content)
 {
-	if(mReadSem.take(waitForever))
+	if(mReadSem.take(waitForever)) //si il y a qqc dans mReadSem, le prendre, sinon, attendre
 	{
-		content = mContent;
+		content = mContent; //on écrit mContent à l'adresse content.
 		return true;
 	}
 	return false;

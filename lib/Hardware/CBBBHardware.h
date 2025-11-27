@@ -14,7 +14,7 @@
 class CBBBHardware
 {
 public:
-	bool fetchValues(UInt16& adcValue,
+	bool fetchValues(UInt16& adcValue, //adc ressort que des valeurs positives
 					 CIMUData& sensor1Data,
 					 CIMUData& sensor2Data);
 	bool enableMotor();
