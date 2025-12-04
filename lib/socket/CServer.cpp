@@ -62,6 +62,7 @@ bool CServer::transmitMessage(SContent& content)
 	do
 	{
 		retVal = send(mConnectedSocketFD, (buffer+writtenByte), (sizeof(content) - writtenByte), MSG_NOSIGNAL);
+		std::cout<<"\nRetVal: "<<retVal<<std::endl;
 		if((retVal < 0) && (errno == EPIPE))
 		{
 			std::cout << "[*] Server: Connection was terminated" << std::endl;

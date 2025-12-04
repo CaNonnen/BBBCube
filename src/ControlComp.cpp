@@ -38,9 +38,9 @@ void ControlComp :: run()
             std::cerr << "Erreur while reading sensor's data. (in ControlComp.run())" << std::endl;
         }
 
-        std::this_thread::sleep_for(milliseconds(ttowait));
+        // std::this_thread::sleep_for(milliseconds(ttowait));
         std::cout<<"\n\nCycle nb: "<<i<< "\nTime gap: " << ttowait << "\n"<<std::endl;
-        auto tstart = steady_clock::now();
+        // auto tstart = steady_clock::now();
 
         //Affichage console
         std::cout << "adcValue : " << adcValue << std::endl;
@@ -71,12 +71,15 @@ void ControlComp :: run()
         std::cout << "mZ_dd: " << sensor2Data.mZ_dd << std::endl;
 
         //Ecriture dans container
+        container_ref.writeADCValue(adcValue);
         container_ref.writeSensor1Data(sensor1Data);
         container_ref.writeSensor2Data(sensor2Data);
 
-        auto tend = steady_clock::now();
+        container_ref.signalReader();
 
-        ttowait = 20 - duration_cast<milliseconds>(tend - tstart).count();
+        // auto tend = steady_clock::now();
+        // ttowait = 20 - duration_cast<milliseconds>(tend - tstart).count();
+        std::this_thread::sleep_for(milliseconds(20));
         i++;
 
     }
