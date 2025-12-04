@@ -15,15 +15,16 @@ int main()
 {
 	CContainer container = CContainer(); // equivalent à CContainer container{}
 	ControlComp control(container);
+	CCommComp communication(container);
 
 	CThread threadControl(&control, CThread::PRIORITY_ABOVE_NORM); //on met &control car le constructeur CThread utilise un pointeur et pas l'objet controlComp
-	threadControl.start();
-
-	CCommComp communication(container); //
 	CThread threadComm(&communication, CThread::PRIORITY_ABOVE_NORM);
+
+	threadControl.start();
 	threadComm.start();
 
-	threadControl.join(); // concretement, permet d'attendre que .start ai fini ...mais c'est une boucle infinie ==> mettre à la fin
+	threadControl.join();
+	threadComm.join(); // concretement, permet d'attendre que .start ai fini ...mais c'est une boucle infinie ==> mettre à la fin
 	
 	return 0;
 }
