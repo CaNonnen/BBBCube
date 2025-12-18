@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <unistd.h>
 
 using namespace std::chrono;
 
@@ -18,28 +19,23 @@ void CCommComp::init()
 }
 
 void CCommComp::run()
-{;
-
+{
     SContent content = {};
-    int ttowait = 0;
     int i=0;
     
     while (true)
     {   
-        //std::this_thread::sleep_for(milliseconds(ttowait));
-        std::cout<< "\n\nCommCycle nb: "<<i<<"\ntime gap: " << ttowait << "\n"<<std::endl;
+        std::cout<< "\n\nCommCycle nb: "<<i << "\n"<<std::endl;
 
-        auto tstart = steady_clock::now();
-        std::cout<<"Value of first element: "<<content.mADCValue<<std::endl;
-        container_.getContent(true,content);//ra l'adresse de content mais on le voit pas ici. Voir def de la fct getContent.
+        if(!container_.getContent(false,content))//ra l'adresse de content mais on le voit pas ici. Voir def de la fct getContent.
+        {
+            usleep(1000);
+            continue; //retourne au début du while
+        }
         //là, les données sont stockées à l'adresse de content.
-        std::cout<<"Value of content: "<<&content<<std::endl;
-        std::cout<<"Value of first element: "<<content.mADCValue<<std::endl;
-
+        std::cout<<"Adress of content: "<<&content<<std::endl;
         server_.transmitMessage(content);
-
-        //auto tend = steady_clock::now();
-        //ttowait = 20 - duration_cast<milliseconds>(tend - tstart).count();
+        
         i++;
         std::this_thread::sleep_for(milliseconds(20));
     }

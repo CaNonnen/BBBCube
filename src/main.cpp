@@ -7,6 +7,9 @@
 #include "CThread.h"
 #include "CCommComp.h"
 
+#include "CCalibration.h"
+#include "SCalibData.h"
+
 using namespace std;// evite de réecrire devant chaque fct qu'on appelle
 
 CContainer container();

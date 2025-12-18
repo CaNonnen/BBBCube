@@ -3,6 +3,9 @@
 #include "AComponentBase.h"
 #include "CContainer.h"
 #include "CBBBHardware.h"
+#include "CCalibration.h"
+#include "CStateEstimation.h"
+#include "CFilter.h"
 
 class ControlComp : public AComponentBase //: classe permet d'hériter la partie publique de AComponentBase
 {
@@ -15,5 +18,7 @@ public :
 private : 
     CContainer& container_ref; // Reference à CContainer (~adresse)
     CBBBHardware hardware_; // Instance de CBBBHardware (declarer un objet qui est type CBBBHardware)
-
+    CCalibration calibration;
+    CStateEstimation estimation;
+    CFilter filter;
 };
