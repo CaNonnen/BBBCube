@@ -3,7 +3,7 @@
 CCalibration::CCalibration()
 {
     coeff_a_dpsi = 0.076660156f;
-    coeff_b_dpsi = -157.0f;
+    coeff_b_dpsi = -156.1238f ;
 
     coeff_a_ddx1 = 0.001195686f;
     coeff_b_ddx1 = -0.006337136f;//diff

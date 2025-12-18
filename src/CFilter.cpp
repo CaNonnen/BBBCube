@@ -12,17 +12,15 @@ CFilter::CFilter ()
 
 SStateVectorData CFilter::filter(SStateVectorData inputVector)
 {
-    SStateVectorData outputVector {};
-    outputVector.mPhi_d = inputVector.mPhi_d;
-    outputVector.mPsi_d = inputVector.mPsi_d;
+    SStateVectorData outputVector = inputVector;
     if (isFirstCalculation)
     {
         isFirstCalculation = false;
-        outputVector.mPhi_A = inputVector.mPhi_A;
         phi_nminus1 = inputVector.mPhi_A;
     }else{
-        outputVector.mPhi_A = alpha*(phi_nminus1+T*inputVector.mPhi_d) + (1-alpha)*inputVector.mPhi_A;
-        phi_nminus1 = outputVector.mPhi_A;
+        phi_nminus1 = alpha*(phi_nminus1+T*inputVector.mPhi_d) + (1-alpha)*inputVector.mPhi_A;
     }
+
+    outputVector.mPhi_C = phi_nminus1;
     return outputVector;
 }

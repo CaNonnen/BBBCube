@@ -17,7 +17,7 @@ SStateVectorData CStateEstimation::estimate(SCalibData calibData)
     vectorData_.mPhi_d = (calibData.d_phi1+calibData.d_phi2) /2; //Mittelung Phi gyro1 und phi Gyro2.
 
     float r_ratio = Abstand_AS1/Abstand_AS2;
-    vectorData_.mPhi_A = atan2(calibData.dd_x1 - r_ratio*calibData.dd_x2,calibData.dd_y1 - r_ratio*calibData.dd_y2);
+    vectorData_.mPhi_A = atan2(calibData.dd_x1 - r_ratio*calibData.dd_x2,calibData.dd_y1 - r_ratio*calibData.dd_y2) + 0.1821283f;
 
     return vectorData_;
 }

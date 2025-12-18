@@ -2,6 +2,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <unistd.h>
 
 using namespace std::chrono;
 
@@ -89,11 +90,17 @@ void ControlComp :: run()
         container_ref.writeStateData(stateVector);
 
         auto tnow = steady_clock::now();
+        auto deltaT = tnow-tstart;
 
-        container_ref.writeTime(duration_cast<milliseconds>(tnow - tstart).count());
+        container_ref.writeTime(duration_cast<microseconds>(deltaT).count());
         container_ref.signalReader();
 
-        std::this_thread::sleep_for(milliseconds(20));
+        auto trest = duration_cast<microseconds>(tstart+milliseconds(i*20)-tnow).count();
+
+        if (trest > 0){
+            usleep(trest);
+        }
+
         i++;
 
     }

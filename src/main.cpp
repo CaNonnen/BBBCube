@@ -20,8 +20,8 @@ int main()
 	ControlComp control(container);
 	CCommComp communication(container);
 
-	CThread threadControl(&control, CThread::PRIORITY_ABOVE_NORM); //on met &control car le constructeur CThread utilise un pointeur et pas l'objet controlComp
-	CThread threadComm(&communication, CThread::PRIORITY_ABOVE_NORM);
+	CThread threadControl(&control, CThread::PRIORITY_HIGH); //on met &control car le constructeur CThread utilise un pointeur et pas l'objet controlComp
+	CThread threadComm(&communication, CThread::PRIORITY_NORM);
 
 	threadControl.start();
 	threadComm.start();
